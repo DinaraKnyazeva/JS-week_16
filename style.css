@@ -1,0 +1,84 @@
+* {
+  color: #33342f;
+  font-family: Helvetica;
+  font-weight: bold;
+}
+
+#content {
+  width: 50vw;
+  margin: 20px 0 0 20px;
+  padding: 10px;
+  border: 1px dotted gray;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.5fr 1fr 1fr 1fr;
+  gap: 5px;
+  align-items: center;
+}
+
+.select-wrapper-brand,
+.select-wrapper-model {
+  position: relative;
+  width: 200px;
+  height: 30px;
+  margin: 20px 0;
+  border: 1px solid #6c7231;
+  border-radius: 3px;
+}
+
+.select-wrapper-brand:hover,
+.select-wrapper-model:hover {
+  box-shadow: 0px 0px 3px gray;
+}
+
+.select-wrapper-brand select,
+.select-wrapper-model select {
+  width: 200px;
+  height: 30px;
+  padding: 0 20px 0 7px;
+  background: transparent;
+  border: 0;
+  appearance: none; /* remove arrow        */
+  -webkit-appearance: none; /* remove arrow Chrome */
+  -moz-appearance: none; /* remove arrow FF     */
+}
+.select-wrapper-brand select::-ms-expand,
+.select-wrapper-model select::-ms-expand {
+  display: none; /* remove arrow IE     */
+}
+
+.select-arrow-3 {
+  position: absolute;
+  z-index: -9999;
+  border: 8px solid transparent;
+  border-bottom: 0;
+  right: 6px;
+}
+.select-arrow-3:nth-child(1) {
+  top: 11px;
+  border-top-color: #6c7231;
+}
+.select-arrow-3:nth-child(2) {
+  top: 8px;
+  border-top-color: #fff;
+}
+
+#button {
+  margin: 20px 0 0 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #337ab7;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#button:hover {
+  background-color: #23527c;
+}
+
+#button:active {
+  background-color: #1c4563;
+}

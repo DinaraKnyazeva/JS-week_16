@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Оценка авто</title>
+  </head>
+  <body>
+    <h1>Оцените свою машину за 1 минуту</h1>
+    <div style="width: 50vw">
+      Сайт «Цена Авто» совместно с Аналитическим агентством «АВТОСТАТ»
+      представляет вам простой, понятный и главное справедливый калькулятор для
+      оценки вашего автомобиля. Для его создания мы применили авторскую методику
+      расчёта стоимости, которая основывается на реальных предложениях о продаже
+      аналогичного автомобиля дилерами и физическими лицами. Узнайте стоимость
+      Вашего автомобиля всего за 1 минуту.
+    </div>
+    <form name="form" novalidate>
+      <div id="content">
+        <div class="select-wrapper-brand">
+          <div class="select-arrow-3"></div>
+          <div class="select-arrow-3"></div>
+          <select title="Марка" id="brand-auto" name="brand">
+            <option value="AUDI" id="brand-AUDI">AUDI</option>
+            <option value="BMW" id="brand-BMW">BMW</option>
+            <option value="HAVAL" id="brand-HAVAL">HAVAL</option>
+            <option value="HYUNDAI" id="brand-HYUNDAI">HYUNDAI</option>
+            <option value="MINI" id="brand-MINI">MINI</option>
+          </select>
+        </div>
+        <div class="select-wrapper-model">
+          <div class="select-arrow-3"></div>
+          <div class="select-arrow-3"></div>
+          <select title="Модель" name="model">
+            <option class="model-AUDI" value="A8">A8</option>
+            <option class="model-AUDI" value="S8">S8</option>
+            <option class="model-AUDI" value="Q8">Q8</option>
+            <option class="model-BMW" value="X4">X4</option>
+            <option class="model-BMW" value="X5">X5</option>
+            <option class="model-BMW" value="X6">X6</option>
+            <option class="model-HAVAL" value="JOLION">JOLION</option>
+            <option class="model-HAVAL" value="DARGO">DARGO</option>
+            <option class="model-HAVAL" value="F7X">F7X</option>
+            <option class="model-HYUNDAI" value="CRETA">CRETA</option>
+            <option class="model-HYUNDAI" value="SOLARIS">SOLARIS</option>
+            <option class="model-HYUNDAI" value="SONATA">SONATA</option>
+            <option class="model-MINI" value="COOPER">COOPER</option>
+            <option class="model-MINI" value="CLUBMAN">CLUBMAN</option>
+            <option class="model-MINI" value="PACEMAN">PACEMAN</option>
+          </select>
+        </div>
+        <div id="content-fuel">
+          <p>Тип топлива:</p>
+          <label>
+            <input type="radio" name="fuel" value="benzin" />
+            Бензин
+          </label>
+          <br />
+          <label>
+            <input type="radio" name="fuel" value="dizel" />
+            Дизель </label
+          ><br />
+          <label>
+            <input type="radio" name="fuel" value="gaz" />
+            Газ </label
+          ><br />
+          <label>
+            <input type="radio" name="fuel" value="electro" />
+            Электричество
+          </label>
+        </div>
+        <div id="content-engine">
+          <label for="engine-input">Объем двигателя (в литрах):</label>
+          <input
+            type="number"
+            id="engine-input"
+            name="engine"
+            min="1.1"
+            max="3.5"
+            step="0.1"
+            required
+          />
+        </div>
+        <div id="content-condition">
+          <p>Состояние автомобиля:</p>
+          <label>
+            <input type="radio" name="condition" value="new" />
+            Новый
+          </label>
+          <label>
+            <input type="radio" name="condition" value="used" />
+            Подержанный
+          </label>
+        </div>
+        <div id="content-quantity">
+          <p>Количеством владельцев:</p>
+          <label>
+            <input type="radio" name="quantity" value="1" />
+            1
+          </label>
+          <br />
+          <label>
+            <input type="radio" name="quantity" value="2" />
+            2 </label
+          ><br />
+          <label>
+            <input type="radio" name="quantity" value="3" />
+            Более 3х </label
+          ><br />
+        </div>
+        <div id="content-payment">
+          <p>Выберите способ оплаты:</p>
+          <label>
+            <input type="radio" name="payment" value="card" />
+            картой
+          </label>
+          <br />
+          <label>
+            <input type="radio" name="payment" value="cash" />
+            наличными </label
+          ><br />
+          <label>
+            <input type="radio" name="payment" value="check" />
+            счёт на юридическое лицо </label
+          ><br />
+        </div>
+      </div>
+      <button id="button">Оценить</button>
+      <div id="resultSum"></div>
+    </form>
+    <script src="script.js"></script>
+  </body>
+</html>
