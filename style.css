@@ -82,3 +82,13 @@
 #button:active {
   background-color: #1c4563;
 }
+.result-box {
+  width: 50vw;
+  display: grid;
+  grid-template-columns: 0.5fr 3fr 2fr;
+  align-items: end;
+  gap: 8px;
+}
+#engine-input {
+  width: 40px;
+}
