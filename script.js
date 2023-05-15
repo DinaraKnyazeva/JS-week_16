@@ -81,21 +81,21 @@ document.querySelector("form").addEventListener("submit", (event) => {
   // Расчет цены в зависимости от марки и модели
   function calculate() {
     const carPrices = {
-      "AUDI-A8": "5 000 000",
-      "AUDI-S8": "6 500 000",
-      "AUDI-Q8": "7 000 000",
-      "BMW-X4": "3 000 000",
-      "BMW-X5": "4 500 000",
-      "BMW-X6": "5 000 000",
-      "HAVAL-JOLION": "2 000 000",
-      "HAVAL-DARGO": "2 500 000",
-      "HAVAL-F7X": "3 000 000",
-      "HYUNDAI-CRETA": "2 000 000",
-      "HYUNDAI-SOLARIS": "1 500 000",
-      "HYUNDAI-SONATA": "2 500 000",
-      "MINI-COOPER": "2 500 000",
-      "MINI-CLUBMAN": "2 000 000",
-      "MINI-PACEMAN": "3 000 000",
+      "AUDI-A8": 5000000,
+      "AUDI-S8": 6500000,
+      "AUDI-Q8": 7000000,
+      "BMW-X4": 3000000,
+      "BMW-X5": 4500000,
+      "BMW-X6": 5000000,
+      "HAVAL-JOLION": 2000000,
+      "HAVAL-DARGO": 2500000,
+      "HAVAL-F7X": 3000000,
+      "HYUNDAI-CRETA": 2000000,
+      "HYUNDAI-SOLARIS": 1500000,
+      "HYUNDAI-SONATA": 2500000,
+      "MINI-COOPER": 2500000,
+      "MINI-CLUBMAN": 2000000,
+      "MINI-PACEMAN": 3000000,
     };
 
     const key = brandAuto.value + "-" + modelAuto.value;
@@ -111,14 +111,14 @@ document.querySelector("form").addEventListener("submit", (event) => {
     const radioTypeFuel = document.querySelector('input[name="fuel"]:checked'); //вид топливо
     if (radioTypeFuel) {
       if (radioTypeFuel.value === "dizel") {
-        carPrice = parseFloat(carPrice) * 1.1 * 1000000; //нужно будет "* 100000" убрать когда результат преобразую в строку
+        carPrice = carPrice * 1.1; //нужно будет "* 100000" убрать когда результат преобразую в строку
       } else if (radioTypeFuel.value === "gaz") {
-        carPrice = parseFloat(carPrice) * 1.15 * 1000000;
+        carPrice = carPrice * 1.15;
       } else if (radioTypeFuel.value === "electro") {
-        carPrice = parseFloat(carPrice) * 1.5 * 1000000;
+        carPrice = carPrice * 1.5;
       }
     }
-    carPrice = parseFloat(carPrice.toFixed(2)); // Округление до 2 знаков после запятой
+    carPrice = carPrice.toFixed(2); // Округление до 2 знаков после запятой
     resultSum.innerText = carPrice; // обновляет результат с учетом выбора топлива
 
     //Расчет цены в зависимости от объёма двигателя
@@ -130,7 +130,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
     } else if (inputEngine.value < 1.99) {
       carPrice = carPrice * 0.96;
     }
-    carPrice = parseFloat(carPrice.toFixed(2)); // Округление до 2 знаков после запятой
+    carPrice = carPrice.toLocaleString(); // Округление до 2 знаков после запятой
     resultSum.innerText = carPrice; // обновляет результат с учетом выбора топлива
 
     //Расчет цены в зависимости от состояния автомобиля
