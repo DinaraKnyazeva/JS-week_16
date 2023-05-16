@@ -2,7 +2,7 @@
 // + выпадающий список с моделью автомобиля;
 // + чекбокс или радиокнопка для выбор топлива (бензин, дизель, газ, электричество)
 // + инпут для ввода объёма двигателя (от 1.1 литра до 3.5 литров);
-// - чекбокс или радиокнопка для выбора состояния автомобиля (новый, подержанный);
+// + чекбокс или радиокнопка для выбора состояния автомобиля (новый, подержанный);
 // - если автомобиль подержанный, то появляется чекбокс или радиокнопка с количеством владельцев (1-2 владельца, более 3х);
 // - чекбокс или радиокнопка для выбора способа оплаты (картой, наличными, счёт на юридическое лицо;
 
@@ -12,7 +12,7 @@ let brandAuto = form.elements.brand;
 let modelAuto = form.elements.model;
 let button = document.getElementById("button");
 let resultSum = document.getElementById("resultSum");
-let containerQuantity = document.getElementById("content-quantity");
+let containerQuantity = document.querySelector(".content-quantity");
 
 // Марка машин
 let AUDI = document.getElementById("brand-AUDI");
@@ -72,8 +72,33 @@ function updateModels() {
   }
 }
 
-// Добавляем обработчик события change для каждой марки автомобиля
+// Добавила обработчик события change для каждой марки автомобиля
 brandAuto.addEventListener("change", updateModels);
+
+const radioTypeCondition = document.querySelectorAll('input[name="condition"]'); //инпуты с состоянием (новый/подер.)
+const radioTypeQuantity = document.querySelectorAll('input[name="quantity"]'); //инпуты с кол-м влад.
+
+//при выборе нового авто инпуты с кол-ом владельцев становится не активным:
+radioTypeCondition.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    if (radio.value === "new") {
+      radioTypeQuantity.forEach((quantityRadio) => {
+        quantityRadio.disabled = true;
+      });
+    } else if (radio.value === "used") {
+      radioTypeQuantity.forEach((quantityRadio) => {
+        quantityRadio.disabled = false;
+      });
+    }
+  });
+
+  // Проверяем начальное состояние при загрузке страницы
+  if (radio.checked && radio.value === "new") {
+    radioTypeQuantity.forEach((quantityRadio) => {
+      quantityRadio.disabled = true;
+    });
+  }
+});
 
 document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault();
@@ -111,7 +136,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
     const radioTypeFuel = document.querySelector('input[name="fuel"]:checked'); //вид топливо
     if (radioTypeFuel) {
       if (radioTypeFuel.value === "dizel") {
-        carPrice = carPrice * 1.1; //нужно будет "* 100000" убрать когда результат преобразую в строку
+        carPrice = carPrice * 1.1;
       } else if (radioTypeFuel.value === "gaz") {
         carPrice = carPrice * 1.15;
       } else if (radioTypeFuel.value === "electro") {
@@ -134,16 +159,22 @@ document.querySelector("form").addEventListener("submit", (event) => {
     resultSum.innerText = carPrice; // обновляет результат с учетом выбора топлива
 
     //Расчет цены в зависимости от состояния автомобиля
-    const radioTypeCondition = document.querySelector(
-      'input[name="condition"]:checked'
-    ); //объем двигателя
-    //прослушивание инпута (состояние авто), при подержанном добавляется выбор кол-ва владельца
-    radioTypeCondition.addEventListener("input", function () {
-      if (radioTypeCondition.value === "used") {
-        containerQuantity.style.display = "block";
-      } else if (radioTypeCondition.value === "new") {
-        containerQuantity.style.display = "none";
-      }
+    const radioTypeQuantity = document.querySelectorAll(
+      'input[name="quantity"]:checked'
+    );
+    radioTypeQuantity.forEach((quantityRadio) => {
+      quantityRadio.addEventListener("change", () => {
+        if (quantityRadio.value === "1") {
+          carPrice = carPrice * 0.85;
+        } else if (quantityRadio.value === "2") {
+          carPrice = carPrice * 0.75;
+        } else if (quantityRadio.value === "3") {
+          carPrice = carPrice * 0.65;
+        }
+
+        carPrice = carPrice.toLocaleString(); // Округление до 2 знаков после запятой
+        resultSum.innerText = carPrice; // Обновляет результат с учетом выбора топлива
+      });
     });
 
     console.log(carPrice);
