@@ -90,11 +90,9 @@
   gap: 8px;
 }
 #engine-input {
-  width: 40px;
+  width: 60px;
 }
-/* .content-quantity {
-  display: none;
+.discont {
+  font-size: 10px;
+  color: gray;
 }
-.open {
-  display: block;
-} */

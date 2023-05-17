@@ -1,11 +1,3 @@
-// + выпадающий список с маркой автомобиля (Reno, Opel, Mazda, Jaguar);
-// + выпадающий список с моделью автомобиля;
-// + чекбокс или радиокнопка для выбор топлива (бензин, дизель, газ, электричество)
-// + инпут для ввода объёма двигателя (от 1.1 литра до 3.5 литров);
-// + чекбокс или радиокнопка для выбора состояния автомобиля (новый, подержанный);
-// - если автомобиль подержанный, то появляется чекбокс или радиокнопка с количеством владельцев (1-2 владельца, более 3х);
-// - чекбокс или радиокнопка для выбора способа оплаты (картой, наличными, счёт на юридическое лицо;
-
 //элементы формы
 let form = document.forms.form;
 let brandAuto = form.elements.brand;
@@ -27,8 +19,6 @@ let modelBMW = document.querySelectorAll(".model-BMW");
 let modelHAVAL = document.querySelectorAll(".model-HAVAL");
 let modelHYUNDAI = document.querySelectorAll(".model-HYUNDAI");
 let modelMINI = document.querySelectorAll(".model-MINI");
-
-//радиокнопки
 
 // Функция для переключения моделей в зависимости от марки авто
 function updateModels() {
@@ -72,11 +62,11 @@ function updateModels() {
   }
 }
 
-// Добавила обработчик события change для каждой марки автомобиля
+// обработчик события change для каждой марки автомобиля
 brandAuto.addEventListener("change", updateModels);
 
 const radioTypeCondition = document.querySelectorAll('input[name="condition"]'); //инпуты с состоянием (новый/подер.)
-const radioTypeQuantity = document.querySelectorAll('input[name="quantity"]'); //инпуты с кол-м влад.
+const radioTypeQuantity = document.querySelectorAll('input[name="quantity"]'); //инпуты с кол-м влад. (по name)
 
 //при выборе нового авто инпуты с кол-ом владельцев становится не активным:
 radioTypeCondition.forEach((radio) => {
@@ -91,7 +81,6 @@ radioTypeCondition.forEach((radio) => {
       });
     }
   });
-
   // Проверяем начальное состояние при загрузке страницы
   if (radio.checked && radio.value === "new") {
     radioTypeQuantity.forEach((quantityRadio) => {
@@ -100,6 +89,23 @@ radioTypeCondition.forEach((radio) => {
   }
 });
 
+//функция валидация - как только все поля будут заполнены только тогда кнопка станет активной
+function validate() {
+  if (
+    brandAuto.value !== "" &&
+    modelAuto.value !== "" &&
+    radioTypeFuel !== null &&
+    inputEngine.value !== "" &&
+    radioTypeQuantity !== null &&
+    radioTypePayment !== null
+  ) {
+    button.disabled = false;
+  } else {
+    button.disabled = true;
+  }
+}
+
+//функция отправки формы
 document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -143,41 +149,44 @@ document.querySelector("form").addEventListener("submit", (event) => {
         carPrice = carPrice * 1.5;
       }
     }
-    carPrice = carPrice.toFixed(2); // Округление до 2 знаков после запятой
-    resultSum.innerText = carPrice; // обновляет результат с учетом выбора топлива
 
     //Расчет цены в зависимости от объёма двигателя
     const inputEngine = document.getElementById("engine-input"); //объем двигателя
-    if (inputEngine.value > 3.1) {
-      carPrice = carPrice * 1;
+    if (inputEngine.value > 3) {
+      carPrice = carPrice * 1.1;
     } else if (inputEngine.value > 2) {
-      carPrice = carPrice * 0.98;
+      carPrice = carPrice * 1;
     } else if (inputEngine.value < 1.99) {
-      carPrice = carPrice * 0.96;
+      carPrice = carPrice * 0.98;
     }
-    carPrice = carPrice.toLocaleString(); // Округление до 2 знаков после запятой
-    resultSum.innerText = carPrice; // обновляет результат с учетом выбора топлива
 
-    //Расчет цены в зависимости от состояния автомобиля
-    const radioTypeQuantity = document.querySelectorAll(
-      'input[name="quantity"]:checked'
+    // Расчет цены в зависимости от состояния автомобиля
+    const radioTypeQuantityClass = document.querySelector(
+      'input[class="quantity"]:checked'
+    ); //инпуты с кол-ом владельцев (по классу)
+    if (radioTypeQuantityClass) {
+      if (radioTypeQuantityClass.value === "1") {
+        carPrice = carPrice * 0.85;
+      } else if (radioTypeQuantityClass.value === "2") {
+        carPrice = carPrice * 0.75;
+      } else if (radioTypeQuantityClass.value === "3") {
+        carPrice = carPrice * 0.65;
+      }
+    }
+
+    // Расчет цены в зависимости от способа оплаты
+    const radioTypePayment = document.querySelector(
+      'input[name="payment"]:checked'
     );
-    radioTypeQuantity.forEach((quantityRadio) => {
-      quantityRadio.addEventListener("change", () => {
-        if (quantityRadio.value === "1") {
-          carPrice = carPrice * 0.85;
-        } else if (quantityRadio.value === "2") {
-          carPrice = carPrice * 0.75;
-        } else if (quantityRadio.value === "3") {
-          carPrice = carPrice * 0.65;
-        }
+    if (radioTypePayment && radioTypePayment.value === "cash") {
+      carPrice = carPrice * 0.98;
+    }
 
-        carPrice = carPrice.toLocaleString(); // Округление до 2 знаков после запятой
-        resultSum.innerText = carPrice; // Обновляет результат с учетом выбора топлива
-      });
-    });
+    carPrice = carPrice.toLocaleString(); // Округление до 2 знаков после запятой
+    resultSum.innerText = carPrice; // Обновляет результат с учетом выбора топлива
 
     console.log(carPrice);
   }
+  validate();
   calculate();
 });
