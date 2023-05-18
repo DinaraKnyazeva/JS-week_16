@@ -90,20 +90,20 @@ radioTypeCondition.forEach((radio) => {
 });
 
 //функция валидация - как только все поля будут заполнены только тогда кнопка станет активной
-function validate() {
-  if (
-    brandAuto.value !== "" &&
-    modelAuto.value !== "" &&
-    radioTypeFuel !== null &&
-    inputEngine.value !== "" &&
-    radioTypeQuantity !== null &&
-    radioTypePayment !== null
-  ) {
-    button.disabled = false;
-  } else {
-    button.disabled = true;
-  }
-}
+// function validate() {
+//   if (
+//     brandAuto.value !== "" &&
+//     modelAuto.value !== "" &&
+//     document.querySelector('input[name="fuel"]:checked') !== null &&
+//     inputEngine.value !== "" &&
+//     document.querySelector('input[class="quantity"]:checked') !== null &&
+//     document.querySelector('input[name="payment"]:checked') !== null
+//   ) {
+//     button.disabled = false;
+//   } else {
+//     button.disabled = true;
+//   }
+// }
 
 //функция отправки формы
 document.querySelector("form").addEventListener("submit", (event) => {
@@ -187,6 +187,5 @@ document.querySelector("form").addEventListener("submit", (event) => {
 
     console.log(carPrice);
   }
-  validate();
   calculate();
 });
